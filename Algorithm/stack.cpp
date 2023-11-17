@@ -9,7 +9,7 @@ struct Node {
   T data;
   Node *next;
 
-  Node(T value) : data(value), next(nullptr) {}
+  explicit Node(T value) : data(value), next(nullptr) {}
 };
 
 // 链表栈
@@ -20,11 +20,11 @@ class LinkedListStack {
  public:
   LinkedListStack() : top(nullptr) {}
 
-  ~LinkedListStack() {}
+  ~LinkedListStack() = default;
 
   // 入栈
   void push(T value) {
-    Node<T> *new_node = new Node(value);
+    auto *new_node = new Node(value);
     new_node->next = top;
     top = new_node;
   }
@@ -44,7 +44,7 @@ class LinkedListStack {
   }
 
   // 查看栈顶元素
-  T peek() const {
+  [[nodiscard]] T peek() const {
     if (isEmpty()) {
       std::cerr << "Error: Stack is empty." << std::endl;
       return T();  // 返回默认值
@@ -53,10 +53,10 @@ class LinkedListStack {
   }
 
   // 是否为空栈
-  bool isEmpty() const { return top == nullptr; }
+  [[nodiscard]] bool isEmpty() const { return top == nullptr; }
 
   // 获取栈大小
-  int size() const {
+  [[nodiscard]] int size() const {
     int count = 0;
     Node<T> *current = top;
     while (current) {
