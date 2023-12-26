@@ -17,34 +17,34 @@ class MyString {
 
   MyString& operator=(const MyString& rhs) {
     std::cout << "MyString& operator=(const MyString &)" << std::endl;
-    if (this != &rhs) {  // ·ÀÖ¹×ÔÎÒ¸´ÖÆ
+    if (this != &rhs) {  // é˜²æ­¢è‡ªæˆ‘å¤åˆ¶
       delete[] _pstr;
       _pstr = nullptr;
-      _pstr = new char[strlen(rhs._pstr) + 1]();  // Éî¿½±´
+      _pstr = new char[strlen(rhs._pstr) + 1]();  // æ·±æ‹·è´
       strcpy(_pstr, rhs._pstr);
     }
     return *this;
   }
 
-  // (´«µİÓÒÖµÊ±)¾ßÓĞÒÆ¶¯ÓïÒåµÄº¯ÊıÓÅÏÈ¾ßÓĞ¸´ÖÆÓïÒåµÄº¯Êı
-  // ÒÆ¶¯¹¹Ôìº¯Êı¡¢ÒÆ¶¯¸³ÖµÔËËã·ûº¯Êı³ÆÎª¾ßÓĞÒÆ¶¯ÓïÒåº¯Êı
-  // ÒÆ¶¯¹¹Ôìº¯Êı£¨Ö»Õë¶ÔÓÒÖµ£©
+  // (ä¼ é€’å³å€¼æ—¶)å…·æœ‰ç§»åŠ¨è¯­ä¹‰çš„å‡½æ•°ä¼˜å…ˆå…·æœ‰å¤åˆ¶è¯­ä¹‰çš„å‡½æ•°
+  // ç§»åŠ¨æ„é€ å‡½æ•°ã€ç§»åŠ¨èµ‹å€¼è¿ç®—ç¬¦å‡½æ•°ç§°ä¸ºå…·æœ‰ç§»åŠ¨è¯­ä¹‰å‡½æ•°
+  // ç§»åŠ¨æ„é€ å‡½æ•°ï¼ˆåªé’ˆå¯¹å³å€¼ï¼‰
   MyString(MyString&& rhs) : _pstr(rhs._pstr) {
     std::cout << "MyString(MyString&& rhs)" << std::endl;
     rhs._pstr = nullptr;
   }
 
-  // ÒÆ¶¯¸³ÖµÔËËã·ûº¯Êı
+  // ç§»åŠ¨èµ‹å€¼è¿ç®—ç¬¦å‡½æ•°
   MyString& operator=(MyString&& rhs) {
     std::cout << "MyString &operator= (MyString&& rhs)" << std::endl;
-    if (this != &rhs) {  // ¿¼ÂÇ×ÔÒÆ¶¯
-      delete[] _pstr;    // ÊÍ·Å×ó²Ù×÷Êı
+    if (this != &rhs) {  // è€ƒè™‘è‡ªç§»åŠ¨
+      delete[] _pstr;    // é‡Šæ”¾å·¦æ“ä½œæ•°
       _pstr = nullptr;
-      _pstr = rhs._pstr;    // ×ªÒÆÓÒ²Ù×÷ÊıµÄ×ÊÔ´
-      rhs._pstr = nullptr;  // ÓÒ²Ù×÷ÊıÖÃÎª¿Õ
+      _pstr = rhs._pstr;    // è½¬ç§»å³æ“ä½œæ•°çš„èµ„æº
+      rhs._pstr = nullptr;  // å³æ“ä½œæ•°ç½®ä¸ºç©º
     }
 
-    return *this;  // ·µ»Ø*this
+    return *this;  // è¿”å›*this
   }
 
   ~MyString() {
@@ -83,13 +83,13 @@ void test() {
 
   std::cout << std::endl;
   s2 = MyString("world");  // MyString &operator= (MyString&& rhs)
-  // MyString("world") ÓÒÖµ£¬ÁÙÊ±¶ÔÏó»á¶ÌÔİ´æÔÚÕ»ÉÏ
+  // MyString("world") å³å€¼ï¼Œä¸´æ—¶å¯¹è±¡ä¼šçŸ­æš‚å­˜åœ¨æ ˆä¸Š
   std::cout << "s2 = " << s2 << std::endl;
 
   std::cout << std::endl;
   MyString s4 = "****";
-  // std::move½«×óÖµ×ª»»ÎªÓÒÖµ
-  // Êµ¼ÊÉÏ·¢ÉúÁËÇ¿ÖÆ×ª»»static_cast<T &&>(lvalue)
+  // std::moveå°†å·¦å€¼è½¬æ¢ä¸ºå³å€¼
+  // å®é™…ä¸Šå‘ç”Ÿäº†å¼ºåˆ¶è½¬æ¢static_cast<T &&>(lvalue)
   s2 = std::move(s4);  // MyString &operator= (MyString&& rhs)
   std::cout << "s2 = " << s2 << std::endl;
 }

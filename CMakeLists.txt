@@ -3,7 +3,7 @@ project(cpp_daily)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/source-charset:utf-8>")#指定源字符集UTF8
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/source-charset:utf-8>")#鎸囧畾婧愬瓧绗﹂泦UTF8
 
 
 add_subdirectory(CppCoreGuidelines)
